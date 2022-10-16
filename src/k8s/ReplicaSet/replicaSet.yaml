@@ -20,5 +20,5 @@ spec:
           image: nginx
   replicas: 3
   selector:
-    matchLabels:
+    matchLabels: # match labels defined under template metadata labels
       tier: front-end
