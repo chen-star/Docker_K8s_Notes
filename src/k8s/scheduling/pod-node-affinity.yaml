@@ -1,0 +1,22 @@
+# if we label node:
+# kubectl label node node-01 size=Large
+# kubectl label node node-01 size=Small
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: size
+                operator: In
+                values:
+                  - Large
+                  - Medium
