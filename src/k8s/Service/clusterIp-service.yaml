@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: nginx-clusterIp-service
+
+spec:
+  type: ClusterIP # default to ClusterIp, even if not specified
+  ports:
+    - targetPort: 80
+      port: 80
+  selector:
+    app: nginx-app
+    tier: front-end
