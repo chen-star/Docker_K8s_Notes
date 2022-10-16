@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: DaemonSet
+
+metadata:
+  name: nginx-ds
+  labels:
+    app: nginx-app
+    tier: front-end
+
+spec:
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        app: nginx-app
+        tier: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  selector:
+    matchLabels: # match labels defined under template metadata labels
+      tier: front-end
