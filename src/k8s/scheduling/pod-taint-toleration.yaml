@@ -1,0 +1,16 @@
+# if we specified taints:
+# kubectl taint nodes node-01 env=prod:NoSchedule
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+  tolerations:
+    - key: "env"
+      operator: "Equal"
+      value: "prod"
+      effect: "NoSchedule"
