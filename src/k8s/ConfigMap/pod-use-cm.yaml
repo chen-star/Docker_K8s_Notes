@@ -3,14 +3,11 @@ kind: Pod
 
 metadata:
   name: nginx-pod
-  labels:
-    app: nginx-app
-    tier: front-end
 
 spec:
   containers:
     - name: nginx-container
       image: nginx
-      env:
-        - name: APP_COLOR
-          value: blue
+      envFrom:
+        - configMapRef:
+            name: app-configmap
