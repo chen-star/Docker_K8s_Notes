@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+
+metadata:
+  name: prod-db-policy
+  namespace: prod
+
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+
+  policyTypes:
+  - Ingress
+  - Egress
+
+  ingress:
+    - from: # allow traffic from api-pod
+        - podSelector:
+            matchLabels:
+              name: api-pod
+      ports:
+        - protocol: TCP
+          port: 3306
+
+  egress: # allow traffic to 192.168.5.10
+    - to:
+        - ipBlock:
+            cidr: 192.168.5.10/32
+      ports:
+        - protocol: TCP
+          port: 80
